@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *myName;
 @property (weak, nonatomic) IBOutlet UILabel *msgTimeStamp;
 
--(void)hideMyItem;
--(void)hideFrdItem;
+- (void) hideMyItem;
+- (void) hideFrdItem;
 
 @end

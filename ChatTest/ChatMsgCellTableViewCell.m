@@ -14,13 +14,11 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void) setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
--(void)hideMyItem{
+- (void) hideMyItem{
     self.myPic.hidden = YES;
     self.myName.hidden = YES;
     self.myMsg.hidden = YES;
@@ -31,7 +29,7 @@
 
 }
 
--(void)hideFrdItem{
+- (void) hideFrdItem{
     self.frdPic.hidden = YES;
     self.frdName.hidden = YES;
     self.frdMsg.hidden = YES;

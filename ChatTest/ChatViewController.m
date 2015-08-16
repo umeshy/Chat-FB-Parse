@@ -45,16 +45,15 @@
     NSString *msg = [sendMessageEditField.text stringByTrimmingCharactersInSet:
                      [NSCharacterSet whitespaceCharacterSet]];
     if ([msg length] <= 0 ) return;
-    
+    sendMessageEditField.text = @"";
     PFObject *msgObj = [PFObject objectWithClassName:@"chatMessage"];
-    msgObj[@"msg"] = [sendMessageEditField text];
+    msgObj[@"msg"] = msg;
     msgObj[@"owner"] = [PFUser currentUser];
     __weak typeof(self) weakSelf = self;
     [msgObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             [weakSelf fetchMessages];
-            [weakSelf updateFrinds:sendMessageEditField.text];
-            sendMessageEditField.text = @"";
+            [weakSelf updateFrinds:msg];
         }
     }];
     
@@ -114,36 +113,25 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    NSLog(@"textFieldDidBeginEditing");
     double offset = self.view.frame.size.height*0.49 - textField.frame.origin.y;
     CGRect rect = CGRectMake(0, offset, self.view.frame.size.width, self.view.frame.size.height);
-    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
-    
     self.view.frame = rect;
-    
     [UIView commitAnimations];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    NSLog(@"textFieldDidEndEditing");
-    
     [textField resignFirstResponder];
-    
     CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
-    
     self.view.frame = rect;
-    
     [UIView commitAnimations];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    NSLog(@"textFieldShouldReturn");
     [textField resignFirstResponder];
     return NO;
 }
@@ -172,8 +160,6 @@
     return messageCell;
 }
 
-#pragma mark Method to configure the appearance of a message list prototype cell
-
 - (void)initCell:(ChatMsgCellTableViewCell *)messageCell forIndexPath:(NSIndexPath *)indexPath {
     
     ChatMessageItem *chatMessage = self.messageArray[indexPath.row];
@@ -199,7 +185,7 @@
     [self.pastMessagesTableView setContentOffset:offset animated:YES];
 }
 
--(void)fetchMessages{
+- (void)fetchMessages{
     
     [self.pastMessagesTableView reloadData];
     PFQuery *query = [PFQuery queryWithClassName:@"chatMessage"];
