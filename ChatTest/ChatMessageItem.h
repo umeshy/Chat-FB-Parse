@@ -18,11 +18,11 @@
 @property (nonatomic, strong) UIImage *profilePic;
 @property (nonatomic, strong) NSString *msgTimeStamp;
 @property (weak, atomic) ChatViewController *chatViewController;
--(id)init:(ChatViewController*)cv;
--(void)setMsgObject:(PFObject*)obj;
--(NSString*)getSenderName;
--(UIImage*)getProfilePic;
--(NSString*)getChatMsg;
--(NSString*)getTimeStamp;
+- (id)init:(ChatViewController*)cv;
+- (void)setMsgObject:(PFObject*)obj;
+- (NSString*)getSenderName;
+- (UIImage*)getProfilePic;
+- (NSString*)getChatMsg;
+- (NSString*)getTimeStamp;
 
 @end

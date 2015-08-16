@@ -21,6 +21,7 @@
     self.msgObj = obj;
     if(self.msgObj != nil){
         self.msgOwnerObj = obj[MSG_OWNER];
+        
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
         [formatter setDateStyle:NSDateFormatterShortStyle];

@@ -30,7 +30,6 @@
 		083257F71B800FAC006DBE65 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083257F61B800FAC006DBE65 /* MobileCoreServices.framework */; };
 		083257F91B800FB5006DBE65 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083257F81B800FB5006DBE65 /* QuartzCore.framework */; };
 		083257FB1B800FC3006DBE65 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083257FA1B800FC3006DBE65 /* Security.framework */; };
-		083257FD1B800FCF006DBE65 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083257FC1B800FCF006DBE65 /* StoreKit.framework */; };
 		083257FF1B800FE0006DBE65 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083257FE1B800FE0006DBE65 /* SystemConfiguration.framework */; };
 		083258011B800FE9006DBE65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083258001B800FE9006DBE65 /* UIKit.framework */; };
 		083258041B80107A006DBE65 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 083258031B80107A006DBE65 /* libsqlite3.dylib */; };
@@ -95,7 +94,6 @@
 				083258041B80107A006DBE65 /* libsqlite3.dylib in Frameworks */,
 				083258011B800FE9006DBE65 /* UIKit.framework in Frameworks */,
 				083257FF1B800FE0006DBE65 /* SystemConfiguration.framework in Frameworks */,
-				083257FD1B800FCF006DBE65 /* StoreKit.framework in Frameworks */,
 				083257FB1B800FC3006DBE65 /* Security.framework in Frameworks */,
 				083257F91B800FB5006DBE65 /* QuartzCore.framework in Frameworks */,
 				083257F71B800FAC006DBE65 /* MobileCoreServices.framework in Frameworks */,
@@ -478,8 +476,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: umeshwarrao yennam (4DS5A7Y74C)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: umeshwarrao yennam (4DS5A7Y74C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ProjectFiles",
@@ -487,7 +485,7 @@
 				INFOPLIST_FILE = ChatTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3e7b886a-0057-4415-a04d-049b1474c340";
 			};
 			name = Debug;
 		};
@@ -495,8 +493,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: umeshwarrao yennam (4DS5A7Y74C)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: umeshwarrao yennam (4DS5A7Y74C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ProjectFiles",
@@ -504,7 +502,7 @@
 				INFOPLIST_FILE = ChatTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3e7b886a-0057-4415-a04d-049b1474c340";
 			};
 			name = Release;
 		};
@@ -561,6 +559,7 @@
 				083257CF1B7E8991006DBE65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		083257D01B7E8991006DBE65 /* Build configuration list for PBXNativeTarget "ChatTestTests" */ = {
 			isa = XCConfigurationList;
@@ -569,6 +568,7 @@
 				083257D21B7E8991006DBE65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

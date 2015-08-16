@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
 #import "Config.h"
+#import "Constance.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -36,25 +36,39 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapOnTableView:)];
     [self.pastMessagesTableView addGestureRecognizer:tap];
     [self.pastMessagesTableView addSubview:refreshControl];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchMessages) name:REFRESH_MSG object:nil];
     [self fetchMessages];
 }
 
 - (IBAction)sendMessage:(id)sender{
-
+    
     NSString *msg = [sendMessageEditField.text stringByTrimmingCharactersInSet:
-                               [NSCharacterSet whitespaceCharacterSet]];
+                     [NSCharacterSet whitespaceCharacterSet]];
     if ([msg length] <= 0 ) return;
     
     PFObject *msgObj = [PFObject objectWithClassName:@"chatMessage"];
     msgObj[@"msg"] = [sendMessageEditField text];
     msgObj[@"owner"] = [PFUser currentUser];
+    __weak typeof(self) weakSelf = self;
     [msgObj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
-            [self fetchMessages];
+            [weakSelf fetchMessages];
+            [weakSelf updateFrinds:sendMessageEditField.text];
             sendMessageEditField.text = @"";
         }
     }];
     
+}
+
+- (void) updateFrinds:(NSString*)msg{
+    PFQuery *pushQuery = [PFInstallation query];
+    [pushQuery whereKey: @"deviceToken" notEqualTo:@""];
+    PFPush *push = [PFPush new];
+    
+    [push setQuery: pushQuery];
+    NSString *payload = [NSString stringWithFormat:@"%@:%@", [[PFUser currentUser] username], msg];
+    [push setData: @{ @"alert": payload }];
+    [push sendPushInBackground];
 }
 
 - (void)refresh:(UIRefreshControl *)refreshControl {
@@ -65,14 +79,6 @@
 - (void) didTapOnTableView:(UIGestureRecognizer*) recognizer {
     [self.sendMessageEditField resignFirstResponder];
 }
-
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//{
-//    [self scrollTableToBottom];
-//    [self.sendMessageEditField resignFirstResponder];
-//}
-//
-
 
 - (IBAction)logOut:(id)sender{
     [PFUser logOut];
@@ -159,7 +165,6 @@
     return [self.messageArray count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ChatMsgCellTableViewCell *messageCell = [tableView dequeueReusableCellWithIdentifier:@"msgCell" forIndexPath:indexPath];
@@ -199,11 +204,11 @@
     [self.pastMessagesTableView reloadData];
     PFQuery *query = [PFQuery queryWithClassName:@"chatMessage"];
     [query includeKey:@"owner"];
-
+    
     __weak typeof(self) weakSelf = self;
     [query findObjectsInBackgroundWithBlock:^(NSArray *chatMessageArray, NSError *error) {
         if (!error) {
-
+            
             [weakSelf.messageArray removeAllObjects];
             for (int i = 0; i < chatMessageArray.count; i++) {
                 ChatMessageItem *msgItem = [[ChatMessageItem alloc] init:self];

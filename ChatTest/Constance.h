@@ -10,5 +10,6 @@
 #define MSG_OWNER @"owner"
 #define MSG_TXT @"msg"
 #define MSG_CREATED_AT @"createdAt"
+#define REFRESH_MSG @"refresh"
 
 
