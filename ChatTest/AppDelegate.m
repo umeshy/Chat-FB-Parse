@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <ParseFacebookUtils/PFFacebookUtils.h>
+#import <Parse/Parse.h>
 
 @interface AppDelegate ()
 
@@ -39,9 +40,12 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
     if([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive){
-        //In coming message
-        [[NSNotificationCenter defaultCenter] postNotificationName:REFRESH_MSG object:nil];
+        if([PFUser currentUser] && [[PFFacebookUtils session] isOpen]){
+            //In coming message
+            [[NSNotificationCenter defaultCenter] postNotificationName:REFRESH_MSG object:nil];
+        }
     }else{
         [PFPush handlePush:userInfo];
     }
