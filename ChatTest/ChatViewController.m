@@ -19,7 +19,10 @@
 
 @end
 
-@implementation ChatViewController
+@implementation ChatViewController{
+@private
+    BOOL isEditorOpen;
+}
 
 @synthesize sendMessageEditField;
 
@@ -77,6 +80,11 @@
 
 - (void) didTapOnTableView:(UIGestureRecognizer*) recognizer {
     [self.sendMessageEditField resignFirstResponder];
+    if(isEditorOpen){
+        isEditorOpen = NO;
+        [self scrollTableToNormal];
+    }
+    
 }
 
 - (IBAction)logOut:(id)sender{
@@ -93,7 +101,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self scrollTableToBottom];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -118,6 +125,8 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
     self.view.frame = rect;
+    isEditorOpen = YES;
+    [self scrollTableToBottom];
     [UIView commitAnimations];
 }
 
@@ -128,17 +137,23 @@
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.3];
     self.view.frame = rect;
+    isEditorOpen = NO;
+    [self scrollTableToNormal];
     [UIView commitAnimations];
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    isEditorOpen = NO;
+    [self scrollTableToNormal];
     return NO;
 }
 
 - (void)reloadChatTable{
     [self.pastMessagesTableView reloadData];
-    [self scrollTableToBottom];
+    if(isEditorOpen){
+        [self scrollTableToBottom];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -185,6 +200,11 @@
     [self.pastMessagesTableView setContentOffset:offset animated:YES];
 }
 
+- (void)scrollTableToNormal {
+    CGPoint offset = CGPointMake(0, 0);
+    [self.pastMessagesTableView setContentOffset:offset animated:YES];
+}
+
 - (void)fetchMessages{
     
     [self.pastMessagesTableView reloadData];
@@ -202,7 +222,9 @@
                 [weakSelf.messageArray addObject:msgItem];
             }
             [weakSelf.pastMessagesTableView reloadData];  // Refresh the table view
-            [weakSelf scrollTableToBottom];  // Scroll to the bottom of the table view
+            if(isEditorOpen){
+              [weakSelf scrollTableToBottom];  // Scroll to the bottom of the table view
+            }
         }
     }];
     
